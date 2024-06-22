@@ -1,0 +1,33 @@
+{{ define "telcsik/new.html" }} {{ template "base/header.html" . }}
+
+<h2>Get them telcsis</h2>
+
+<form action="/telcsik" method="POST">
+  <div>
+    <label for="minprice">Min Price</label>
+    <input
+      type="number"
+      name="minprice"
+      id="minprice"
+      min="1"
+      max="1000000"
+      value="20000"
+      required
+    />
+  </div>
+  <div>
+    <label for="maxprice">Max Price</label>
+    <input
+      type="number"
+      name="maxprice"
+      id="maxprice"
+      min="1"
+      max="1000000"
+      value="100000"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+{{ template "base/footer.html" . }} {{ end }}
