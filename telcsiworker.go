@@ -60,92 +60,98 @@ type PhoneCatalog struct {
 	phonebrands []PhoneBrand
 }
 
-func telcsiworker(minPrice uint, maxPrice uint) (excelName string) {
+func telcsiworker(telcsiFarmolasDef *TelcsiFarmolas) (excelName string) {
 
 	c_jofog := colly.NewCollector()
 
 	c_hardapro := colly.NewCollector()
-
+	
 	// const MAX_PRICE = 100000
 	// const MIN_PRICE = 20000
-
+	
 	const DEPTH = 50
 	currentDepth := 0
 
 	const FOLDER = "scrapings/"
 
 	var foundPhones PhoneCatalog
+	var p_regexps PhoneRegExpCatalog
+
+	// var phoneBrands []string
 
 	// INIT PHONEBRANDS
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "flip",
-			phones:      make([]Phone, 0),
-			excel_color: "GOOD",
-		})
+	foundPhones = decidePhoneCatalog(telcsiFarmolasDef)
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "fold",
-			phones:      make([]Phone, 0),
-			excel_color: "GOOD",
-		})
+	// INIT PHONEBRANDS
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "flip",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "GOOD",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "samsung",
-			phones:      make([]Phone, 0),
-			excel_color: "GOOD",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "fold",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "GOOD",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "sony",
-			phones:      make([]Phone, 0),
-			excel_color: "GOOD",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "samsung",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "GOOD",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "oneplus",
-			phones:      make([]Phone, 0),
-			excel_color: "NEUTRAL",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "sony",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "GOOD",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "pixel",
-			phones:      make([]Phone, 0),
-			excel_color: "NEUTRAL",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "oneplus",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "NEUTRAL",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "honor",
-			phones:      make([]Phone, 0),
-			excel_color: "NEUTRAL",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "pixel",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "NEUTRAL",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "nothing",
-			phones:      make([]Phone, 0),
-			excel_color: "NEUTRAL",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "honor",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "NEUTRAL",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "huawei",
-			phones:      make([]Phone, 0),
-			excel_color: "NEUTRAL",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "nothing",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "NEUTRAL",
+	// 	})
 
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        "xiaomi",
-			phones:      make([]Phone, 0),
-			excel_color: "NEUTRAL",
-		})
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "huawei",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "NEUTRAL",
+	// 	})
+
+	// foundPhones.phonebrands = append(foundPhones.phonebrands,
+	// 	PhoneBrand{
+	// 		name:        "xiaomi",
+	// 		phones:      make([]Phone, 0),
+	// 		excel_color: "NEUTRAL",
+	// 	})
 
 	foundPhones.phonebrands = append(foundPhones.phonebrands,
 		PhoneBrand{
@@ -161,52 +167,54 @@ func telcsiworker(minPrice uint, maxPrice uint) (excelName string) {
 			excel_color: "BAD",
 		})
 
-	var p_regexps PhoneRegExpCatalog
 
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "flip",
-		p_regexp: regexp.MustCompile("FLIP"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "fold",
-		p_regexp: regexp.MustCompile("FOLD"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "samsung",
-		p_regexp: regexp.MustCompile("SAMSUNG|GALAXY"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "apple",
-		p_regexp: regexp.MustCompile("APPLE|IPHONE"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "huawei",
-		p_regexp: regexp.MustCompile("HUAWEI|HAUWEI"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "xiaomi",
-		p_regexp: regexp.MustCompile("XIAOMI|XAOMI"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "sony",
-		p_regexp: regexp.MustCompile("SONY"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "nothing",
-		p_regexp: regexp.MustCompile("NOTHING"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "oneplus",
-		p_regexp: regexp.MustCompile("ONEPLUS|ONE PLUS"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "pixel",
-		p_regexp: regexp.MustCompile("PIXEL"),
-	})
-	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
-		name:     "honor",
-		p_regexp: regexp.MustCompile("HONOR"),
-	})
+	// INIT REGEXPS
+	p_regexps =	decideRegexp(foundPhones)
+
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "flip",
+	// 	p_regexp: regexp.MustCompile("FLIP"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "fold",
+	// 	p_regexp: regexp.MustCompile("FOLD"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "samsung",
+	// 	p_regexp: regexp.MustCompile("SAMSUNG|GALAXY"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "apple",
+	// 	p_regexp: regexp.MustCompile("APPLE|IPHONE"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "huawei",
+	// 	p_regexp: regexp.MustCompile("HUAWEI|HAUWEI"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "xiaomi",
+	// 	p_regexp: regexp.MustCompile("XIAOMI|XAOMI"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "sony",
+	// 	p_regexp: regexp.MustCompile("SONY"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "nothing",
+	// 	p_regexp: regexp.MustCompile("NOTHING"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "oneplus",
+	// 	p_regexp: regexp.MustCompile("ONEPLUS|ONE PLUS"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "pixel",
+	// 	p_regexp: regexp.MustCompile("PIXEL"),
+	// })
+	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+	// 	name:     "honor",
+	// 	p_regexp: regexp.MustCompile("HONOR"),
+	// })
 
 	/*
 		----------------------------------------------------------
@@ -350,10 +358,10 @@ func telcsiworker(minPrice uint, maxPrice uint) (excelName string) {
 		}
 	})
 
-	c_jofog.Visit(fmt.Sprintf("https://www.jofogas.hu/magyarorszag/mobiltelefon?max_price=%d&min_price=%d&mobile_memory=3,4,5,6,7,8&mobile_os=1&sp=2", maxPrice, minPrice))
+	c_jofog.Visit(fmt.Sprintf("https://www.jofogas.hu/magyarorszag/mobiltelefon?max_price=%d&min_price=%d&mobile_memory=3,4,5,6,7,8&mobile_os=1&sp=2", telcsiFarmolasDef.MaxPrice, telcsiFarmolasDef.MinPrice))
 	c_jofog.Wait()
 	fmt.Println("Done with Jófogás")
-	c_hardapro.Visit(fmt.Sprintf("https://hardverapro.hu/aprok/mobil/mobil/android/keres.php?stext=&stcid_text=&stcid=&stmid_text=&stmid=&minprice=%d&maxprice=%d&cmpid_text=&cmpid=&usrid_text=&usrid=&__buying=0&__buying=1&stext_none=", minPrice, maxPrice))
+	c_hardapro.Visit(fmt.Sprintf("https://hardverapro.hu/aprok/mobil/mobil/android/keres.php?stext=&stcid_text=&stcid=&stmid_text=&stmid=&minprice=%d&maxprice=%d&cmpid_text=&cmpid=&usrid_text=&usrid=&__buying=0&__buying=1&stext_none=", telcsiFarmolasDef.MinPrice, telcsiFarmolasDef.MaxPrice))
 	c_hardapro.Wait()
 	fmt.Println("Done with Hardverapró")
 
@@ -634,12 +642,296 @@ func getRamClassification(title string) (ram string) {
 	}
 	if re128GBprob.MatchString(title) {
 		ram += "1"
-	} else {
-		ram += "0"
+		} else {
+			ram += "0"
 	}
 	return
 }
 
+func decidePhoneCatalog(telcsi *TelcsiFarmolas)(PhoneCatalog){
+	var foundPhones PhoneCatalog
+	
+
+	// var phoneBrands []string
+	
+	//Phone1
+	if telcsi.Phone1 != "none"{
+		var color string
+		if (telcsi.Phone1Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone1,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}
+
+
+	//Phone2
+	if telcsi.Phone2 != "none"{
+		var color string
+		if (telcsi.Phone2Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone2,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone3
+	if telcsi.Phone3 != "none"{
+		var color string
+		if (telcsi.Phone3Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone3,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone4
+	if telcsi.Phone4 != "none"{
+		var color string
+		if (telcsi.Phone4Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone4,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone5
+	if telcsi.Phone5 != "none"{
+		var color string
+		if (telcsi.Phone5Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone5,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone6
+	if telcsi.Phone6 != "none"{
+		var color string
+		if (telcsi.Phone6Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone6,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone7
+	if telcsi.Phone7 != "none"{
+		var color string
+		if (telcsi.Phone7Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone7,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone8
+	if telcsi.Phone8 != "none"{
+		var color string
+		if (telcsi.Phone8Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone8,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone9
+	if telcsi.Phone9 != "none"{
+		var color string
+		if (telcsi.Phone9Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone9,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}	
+
+
+	//Phone10
+	if telcsi.Phone10 != "none"{
+		var color string
+		if (telcsi.Phone10Important){
+			color = "GOOD"
+		} else {
+			color = "NEUTRAL"
+		}
+	foundPhones.phonebrands = append(foundPhones.phonebrands,
+		PhoneBrand{
+			name:        telcsi.Phone10,
+			phones:      make([]Phone, 0),
+			excel_color: color,
+		})		
+	} else {
+		return foundPhones
+	}
+	
+	
+
+	return foundPhones
+}
+
+func decideRegexp(fp PhoneCatalog)(PhoneRegExpCatalog){
+	var p_regexps PhoneRegExpCatalog
+
+	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+		name:     "apple",
+		p_regexp: regexp.MustCompile("APPLE|IPHONE"),
+	})
+
+	if(checkPhoneCatalogForBrand(fp,"flip")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "flip",
+			p_regexp: regexp.MustCompile("FLIP"),
+		})
+	}
+	
+	if(checkPhoneCatalogForBrand(fp,"fold")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "fold",
+			p_regexp: regexp.MustCompile("FOLD"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"samsung")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "samsung",
+			p_regexp: regexp.MustCompile("SAMSUNG|GALAXY"),
+		})
+	}
+
+	if(checkPhoneCatalogForBrand(fp,"huawei")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "huawei",
+			p_regexp: regexp.MustCompile("HUAWEI|HAUWEI"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"xiaomi")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "xiaomi",
+			p_regexp: regexp.MustCompile("XIAOMI|XAOMI"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"sony")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "sony",
+			p_regexp: regexp.MustCompile("SONY"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"nothing")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "nothing",
+			p_regexp: regexp.MustCompile("NOTHING"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"oneplus")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "oneplus",
+			p_regexp: regexp.MustCompile("ONEPLUS|ONE PLUS"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"pixel")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "pixel",
+			p_regexp: regexp.MustCompile("PIXEL"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"honor")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "honor",
+			p_regexp: regexp.MustCompile("HONOR"),
+		})
+	}
+
+	return p_regexps
+}
+
+func checkPhoneCatalogForBrand(fp PhoneCatalog,brand string)(bool){
+	found := false;
+	for _,pb := range fp.phonebrands {
+		if pb.name == brand {
+			found = true
+			return found
+		}
+	}
+	return found
+}
 /*
 
 #
