@@ -17,14 +17,25 @@ FROM build-stage AS run-test-stage
 RUN go test -v ./...
 
 # Deploy the application binary into a lean image
-FROM gcr.io/distroless/base-debian11 AS build-release-stage
-
+# FROM gcr.io/distroless/base-debian11 AS build-release-stage
+FROM golang:1.23rc1-bookworm AS build-release-stage
 WORKDIR /
 
+RUN useradd -ms /bin/bash admin
+
+
 COPY --from=build-stage ./app/bin/telcsifarmer /telcsifarmer
+COPY /static /static
+COPY /templates /templates
+
+COPY  --chown=admin:admin /scrapings /scrapings
+
+# RUN chown -R admin:admin /scrapings
+# RUN chmod 755 /scrapings
+USER admin
 
 EXPOSE 6969
 
-USER nonroot:nonroot
+# USER nonroot:nonroot
 
 ENTRYPOINT ["./telcsifarmer"]
