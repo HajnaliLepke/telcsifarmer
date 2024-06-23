@@ -703,14 +703,14 @@ func decideRegexp(fp PhoneCatalog)(PhoneRegExpCatalog){
 	if(checkPhoneCatalogForBrand(fp,"samsung")){
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "samsung",
-			p_regexp: regexp.MustCompile("SAMSUNG|GALAXY"),
+			p_regexp: regexp.MustCompile("SAMSUNG|GALAXY|SAMSUBG"),
 		})
 	}
 
 	if(checkPhoneCatalogForBrand(fp,"huawei")){
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "huawei",
-			p_regexp: regexp.MustCompile("HUAWEI|HAUWEI"),
+			p_regexp: regexp.MustCompile("HUAWEI|HAUWEI|HUANWEI"),
 		})
 	}
 	if(checkPhoneCatalogForBrand(fp,"xiaomi")){
@@ -747,6 +747,42 @@ func decideRegexp(fp PhoneCatalog)(PhoneRegExpCatalog){
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "honor",
 			p_regexp: regexp.MustCompile("HONOR"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"oppo")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "oppo",
+			p_regexp: regexp.MustCompile("OPPO"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"redmi")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "redmi",
+			p_regexp: regexp.MustCompile("REDMI"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"realme")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "realme",
+			p_regexp: regexp.MustCompile("REALME"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"poco")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "poco",
+			p_regexp: regexp.MustCompile("POCO"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"nokia")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "nokia",
+			p_regexp: regexp.MustCompile("NOKIA"),
+		})
+	}
+	if(checkPhoneCatalogForBrand(fp,"motorola")){
+		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
+			name:     "motorola",
+			p_regexp: regexp.MustCompile("MOTOROLA"),
 		})
 	}
 
