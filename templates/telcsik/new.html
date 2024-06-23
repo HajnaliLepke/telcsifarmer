@@ -30,313 +30,191 @@
   <br /><br />
 
   <div>
-    <label for="first">#1:</label>
-    <select
-      class="order-selects"
-      name="first"
-      id="first"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <p>Important phones:</p>
+    <label for="flip_important">Flip</label>
     <input
-      class="important-checks"
+      class="check-important"
       type="checkbox"
-      id="first_green"
-      name="first_green"
-      onchange="checkboxChecked()"
+      name="good_phones[]"
+      value="flip"
+      id="flip_important"
+      onchange="checkChangeEvent()"
     />
-    <label for="first_green">Important</label>
+    <label for="fold_important">Fold</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="fold"
+      id="fold_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="samsung_important">Samsung</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="samsung"
+      id="samsung_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="oneplus_important">OnePlus</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="oneplus"
+      id="oneplus_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="sony_important">Sony</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="sony"
+      id="sony_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="pixel_important">Pixel</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="pixel"
+      id="pixel_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="honor_important">Honor</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="honor"
+      id="honor_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="nothing_important">Nothing</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="nothing"
+      id="nothing_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="huawei_important">Huawei</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="huawei"
+      id="huawei_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="xiaomi_important">Xiaomi</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="xiaomi"
+      id="xiaomi_important"
+      onchange="checkChangeEvent()"
+    />
   </div>
   <br />
   <div>
-    <label for="second">#2:</label>
-    <select
-      class="order-selects"
-      name="second"
-      id="second"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <p>Okay phones:</p>
+    <label for="flip_okay">Flip</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="second_green"
-      name="second_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="flip"
+      id="flip_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="second_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="third">#3:</label>
-    <select
-      class="order-selects"
-      name="third"
-      id="third"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="fold_okay">Fold</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="third_green"
-      name="third_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="fold"
+      id="fold_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="third_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="fourth">#4:</label>
-    <select
-      class="order-selects"
-      name="fourth"
-      id="fourth"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="samsung_okay">Samsung</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="fourth_green"
-      name="fourth_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="samsung"
+      id="samsung_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="fourth_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="fifth">#5:</label>
-    <select
-      class="order-selects"
-      name="fifth"
-      id="fifth"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="oneplus_okay">OnePlus</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="fifth_green"
-      name="fifth_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="oneplus"
+      id="oneplus_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="fifth_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="sixth">#6:</label>
-    <select
-      class="order-selects"
-      name="sixth"
-      id="sixth"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="sony_okay">Sony</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="sixth_green"
-      name="sixth_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="sony"
+      id="sony_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="sixth_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="seventh">#7:</label>
-    <select
-      class="order-selects"
-      name="seventh"
-      id="seventh"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="pixel_okay">Pixel</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="seventh_green"
-      name="seventh_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="pixel"
+      id="pixel_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="seventh_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="eighth">#8:</label>
-    <select
-      class="order-selects"
-      name="eighth"
-      id="eighth"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="honor_okay">Honor</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="eighth_green"
-      name="eighth_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="honor"
+      id="honor_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="eighth_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="ninth">#9:</label>
-    <select
-      class="order-selects"
-      name="ninth"
-      id="ninth"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="nothing_okay">Nothing</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="ninth_green"
-      name="ninth_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="nothing"
+      id="nothing_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="ninth_green">Important</label>
-  </div>
-  <br />
-  <div>
-    <label for="tenth">#10:</label>
-    <select
-      class="order-selects"
-      name="tenth"
-      id="tenth"
-      onchange="orderChange()"
-      value="none"
-    >
-      <option value="none">None</option>
-      <option value="flip">Flip</option>
-      <option value="fold">Fold</option>
-      <option value="samsung">Samsung</option>
-      <option value="sony">Sony</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="pixel">Pixel</option>
-      <option value="honor">Honor</option>
-      <option value="nothing">Nothing</option>
-      <option value="huawei">Huawei</option>
-      <option value="xiaomi">Xiaomi</option>
-    </select>
+    <label for="huawei_okay">Huawei</label>
     <input
-      class="important-checks"
+      class="check-okay"
       type="checkbox"
-      id="tenth_green"
-      name="tenth_green"
-      onchange="checkboxChecked()"
+      name="neutral_phones[]"
+      value="huawei"
+      id="huawei_okay"
+      onchange="checkChangeEvent()"
     />
-    <label for="tenth_green">Important</label>
+    <label for="xiaomi_okay">Xiaomi</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="xiaomi"
+      id="xiaomi_okay"
+      onchange="checkChangeEvent()"
+    />
   </div>
   <br />
 
@@ -345,4 +223,37 @@
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
-{{ template "base/footer.html" . }} {{ end }}
+<p>Min Price, Max Price and at least 1 Okay phone is required</p>
+
+{{ template "base/footer.html" . }} {{ end }} {% comment %}
+<div>
+  <label for="second">#2:</label>
+  <select
+    class="order-selects"
+    name="second"
+    id="second"
+    onchange="orderChange()"
+    value="none"
+  >
+    <option value="none">None</option>
+    <option value="flip">Flip</option>
+    <option value="fold">Fold</option>
+    <option value="samsung">Samsung</option>
+    <option value="sony">Sony</option>
+    <option value="oneplus">OnePlus</option>
+    <option value="pixel">Pixel</option>
+    <option value="honor">Honor</option>
+    <option value="nothing">Nothing</option>
+    <option value="huawei">Huawei</option>
+    <option value="xiaomi">Xiaomi</option>
+  </select>
+  <input
+    class="important-checks"
+    type="checkbox"
+    id="second_green"
+    name="second_green"
+    onchange="checkboxChecked()"
+  />
+  <label for="second_green">Important</label>
+</div>
+{% endcomment %}

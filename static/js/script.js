@@ -43,6 +43,42 @@ function undisableallselects(){
     }
 }
 
+function undisableallchecks(){
+    var checks_i = document.getElementsByClassName("check-important");
+    for (var i=0; i<checks_i.length;i++){
+        checks_i[i].disabled = false
+    }
+    var checks_o = document.getElementsByClassName("check-okay");
+    for (var i=0; i<checks_o.length;i++){
+        checks_o[i].disabled = false
+    }    
+}
+
+function checkChangeEvent() {
+    //we need to undisable every select to start over
+    undisableallchecks()
+
+    var checks_i = document.getElementsByClassName("check-important");
+    var checks_o = document.getElementsByClassName("check-okay");
+    for (var i=0; i<checks_i.length;i++){
+        if (checks_i[i].checked) {
+            for (var i2=0; i2<checks_o.length;i2++){
+                if (checks_i[i].value === checks_o[i2].value) {  
+                    checks_o[i2].disabled = true
+                }
+            }
+        }
+    }
+    for (var j=0; j<checks_o.length;j++){
+        if (checks_o[j].checked) {
+            for (var j2=0; j2<checks_i.length;j2++){
+                if (checks_o[j].value === checks_i[j2].value) {  
+                    checks_i[j2].disabled = true
+                }
+            }
+        }
+    }    
+}
 
 function checkboxChecked() {
     var checks = document.getElementsByClassName("important-checks");

@@ -77,11 +77,9 @@ func telcsikNewPostHandler(c *gin.Context) {
 	// c.Redirect(http.StatusFound, "/telcsik/working")
 	//IDE KELL KÓD, LOGIKA
 	fmt.Printf("Telcsik min_price: %d and Telcsik max_price: %d\n", telcsi.MinPrice, telcsi.MaxPrice)
-	fmt.Printf("Telcsik %v\n", telcsi)
+	fmt.Printf("Telcsik Fontik: %s, Telcsik maradék: %s\n", telcsi.ImportantPhones, telcsi.NeutralPhones)
 	excelName := telcsiworker(telcsi)
 
-	//fmt.Printf("Setting excelName to %s\n", excelName)
-	//c.Set("excelname", excelName)
 
 	c.Redirect(http.StatusFound, "/telcsik/download/"+excelName)
 }

@@ -652,197 +652,28 @@ func decidePhoneCatalog(telcsi *TelcsiFarmolas)(PhoneCatalog){
 	var foundPhones PhoneCatalog
 	
 
-	// var phoneBrands []string
+	//var phoneBrands []string
 	
-	//Phone1
-	if telcsi.Phone1 != "none"{
-		var color string
-		if (telcsi.Phone1Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone1,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
+	// Important
+	for _, p := range telcsi.ImportantPhones {
+		foundPhones.phonebrands = append(foundPhones.phonebrands,
+			PhoneBrand{
+				name:        p,
+				phones:      make([]Phone, 0),
+				excel_color: "GOOD",
+			})			
 	}
 
 
-	//Phone2
-	if telcsi.Phone2 != "none"{
-		var color string
-		if (telcsi.Phone2Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone2,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone3
-	if telcsi.Phone3 != "none"{
-		var color string
-		if (telcsi.Phone3Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone3,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone4
-	if telcsi.Phone4 != "none"{
-		var color string
-		if (telcsi.Phone4Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone4,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone5
-	if telcsi.Phone5 != "none"{
-		var color string
-		if (telcsi.Phone5Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone5,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone6
-	if telcsi.Phone6 != "none"{
-		var color string
-		if (telcsi.Phone6Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone6,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone7
-	if telcsi.Phone7 != "none"{
-		var color string
-		if (telcsi.Phone7Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone7,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone8
-	if telcsi.Phone8 != "none"{
-		var color string
-		if (telcsi.Phone8Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone8,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone9
-	if telcsi.Phone9 != "none"{
-		var color string
-		if (telcsi.Phone9Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone9,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
-	}	
-
-
-	//Phone10
-	if telcsi.Phone10 != "none"{
-		var color string
-		if (telcsi.Phone10Important){
-			color = "GOOD"
-		} else {
-			color = "NEUTRAL"
-		}
-	foundPhones.phonebrands = append(foundPhones.phonebrands,
-		PhoneBrand{
-			name:        telcsi.Phone10,
-			phones:      make([]Phone, 0),
-			excel_color: color,
-		})		
-	} else {
-		return foundPhones
+	// Neutral
+	for _, p := range telcsi.NeutralPhones {
+		foundPhones.phonebrands = append(foundPhones.phonebrands,
+			PhoneBrand{
+				name:        p,
+				phones:      make([]Phone, 0),
+				excel_color: "NEUTRAL",
+			})			
 	}
-	
 	
 
 	return foundPhones
