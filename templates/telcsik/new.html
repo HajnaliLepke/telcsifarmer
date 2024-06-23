@@ -27,7 +27,233 @@
       required
     />
   </div>
+  <br /><br />
+
+  <div>
+    <p>Important phones:</p>
+    <label for="flip_important">Flip</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="flip"
+      id="flip_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="fold_important">Fold</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="fold"
+      id="fold_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="samsung_important">Samsung</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="samsung"
+      id="samsung_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="oneplus_important">OnePlus</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="oneplus"
+      id="oneplus_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="sony_important">Sony</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="sony"
+      id="sony_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="pixel_important">Pixel</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="pixel"
+      id="pixel_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="honor_important">Honor</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="honor"
+      id="honor_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="nothing_important">Nothing</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="nothing"
+      id="nothing_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="huawei_important">Huawei</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="huawei"
+      id="huawei_important"
+      onchange="checkChangeEvent()"
+    />
+    <label for="xiaomi_important">Xiaomi</label>
+    <input
+      class="check-important"
+      type="checkbox"
+      name="good_phones[]"
+      value="xiaomi"
+      id="xiaomi_important"
+      onchange="checkChangeEvent()"
+    />
+  </div>
+  <br />
+  <div>
+    <p>Okay phones:</p>
+    <label for="flip_okay">Flip</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="flip"
+      id="flip_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="fold_okay">Fold</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="fold"
+      id="fold_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="samsung_okay">Samsung</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="samsung"
+      id="samsung_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="oneplus_okay">OnePlus</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="oneplus"
+      id="oneplus_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="sony_okay">Sony</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="sony"
+      id="sony_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="pixel_okay">Pixel</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="pixel"
+      id="pixel_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="honor_okay">Honor</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="honor"
+      id="honor_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="nothing_okay">Nothing</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="nothing"
+      id="nothing_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="huawei_okay">Huawei</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="huawei"
+      id="huawei_okay"
+      onchange="checkChangeEvent()"
+    />
+    <label for="xiaomi_okay">Xiaomi</label>
+    <input
+      class="check-okay"
+      type="checkbox"
+      name="neutral_phones[]"
+      value="xiaomi"
+      id="xiaomi_okay"
+      onchange="checkChangeEvent()"
+    />
+  </div>
+  <br />
+
+  <br /><br />
+
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
-{{ template "base/footer.html" . }} {{ end }}
+<p>Min Price, Max Price and at least 1 Okay phone is required</p>
+
+{{ template "base/footer.html" . }} {{ end }} {% comment %}
+<div>
+  <label for="second">#2:</label>
+  <select
+    class="order-selects"
+    name="second"
+    id="second"
+    onchange="orderChange()"
+    value="none"
+  >
+    <option value="none">None</option>
+    <option value="flip">Flip</option>
+    <option value="fold">Fold</option>
+    <option value="samsung">Samsung</option>
+    <option value="sony">Sony</option>
+    <option value="oneplus">OnePlus</option>
+    <option value="pixel">Pixel</option>
+    <option value="honor">Honor</option>
+    <option value="nothing">Nothing</option>
+    <option value="huawei">Huawei</option>
+    <option value="xiaomi">Xiaomi</option>
+  </select>
+  <input
+    class="important-checks"
+    type="checkbox"
+    id="second_green"
+    name="second_green"
+    onchange="checkboxChecked()"
+  />
+  <label for="second_green">Important</label>
+</div>
+{% endcomment %}

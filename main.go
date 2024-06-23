@@ -65,6 +65,7 @@ func telcsikNewPostHandler(c *gin.Context) {
 	if err := c.Bind(telcsi); err != nil {
 		// Note: if there's a bind error, Gin will call
 		// c.AbortWithError. We just need to return here.
+		fmt.Printf(" \n\n\nHiba:  %v \n\n\n",err)
 		return
 	}
 	// FIXME: There's a better way to do this validation!
@@ -75,11 +76,10 @@ func telcsikNewPostHandler(c *gin.Context) {
 
 	// c.Redirect(http.StatusFound, "/telcsik/working")
 	//IDE KELL KÓD, LOGIKA
-	//fmt.Printf("Telcsik min_price: %d and Telcsik max_price: %d\n", telcsi.MinPrice, telcsi.MaxPrice)
-	excelName := telcsiworker(telcsi.MinPrice, telcsi.MaxPrice)
+	fmt.Printf("Telcsik min_price: %d and Telcsik max_price: %d\n", telcsi.MinPrice, telcsi.MaxPrice)
+	fmt.Printf("Telcsik Fontik: %s, Telcsik maradék: %s\n", telcsi.ImportantPhones, telcsi.NeutralPhones)
+	excelName := telcsiworker(telcsi)
 
-	//fmt.Printf("Setting excelName to %s\n", excelName)
-	//c.Set("excelname", excelName)
 
 	c.Redirect(http.StatusFound, "/telcsik/download/"+excelName)
 }
