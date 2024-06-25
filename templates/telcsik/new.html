@@ -1,336 +1,535 @@
 {{ define "telcsik/new.html" }} {{ template "base/header.html" . }}
 
 <h2>Get them telcsis</h2>
+<div class="form-main-div">
+  <form action="/telcsik" method="POST">
+    <div class="grid-form">
+      <p class="spacer-p"></p>
+      <div class="price-row">
+        <label for="minprice">Min Price</label>
+        <input
+          type="number"
+          name="minprice"
+          id="minprice"
+          min="1"
+          max="1000000"
+          value="20000"
+          required
+        />
+      </div>
+      <div class="price-row">
+        <label for="maxprice">Max Price</label>
+        <input
+          type="number"
+          name="maxprice"
+          id="maxprice"
+          min="1"
+          max="1000000"
+          value="100000"
+          required
+        />
+      </div>
 
-<form action="/telcsik" method="POST">
-  <div>
-    <label for="minprice">Min Price</label>
-    <input
-      type="number"
-      name="minprice"
-      id="minprice"
-      min="1"
-      max="1000000"
-      value="20000"
-      required
-    />
-  </div>
-  <div>
-    <label for="maxprice">Max Price</label>
-    <input
-      type="number"
-      name="maxprice"
-      id="maxprice"
-      min="1"
-      max="1000000"
-      value="100000"
-      required
-    />
-  </div>
-  <br /><br />
+      <p class="spacer-p"></p>
+      <p class="classification-p">Important phones:</p>
+      <div>
+        <label class="container" class="container" for="flip_important"
+          >Flip
 
-  <div>
-    <p>Important phones:</p>
-    <label for="flip_important">Flip</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="flip"
-      id="flip_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="fold_important">Fold</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="fold"
-      id="fold_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="samsung_important">Samsung</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="samsung"
-      id="samsung_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="oneplus_important">OnePlus</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="oneplus"
-      id="oneplus_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="sony_important">Sony</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="sony"
-      id="sony_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="pixel_important">Pixel</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="pixel"
-      id="pixel_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="honor_important">Honor</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="honor"
-      id="honor_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="motorola_important">Motorola</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="motorola"
-      id="motorola_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="nothing_important">Nothing</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="nothing"
-      id="nothing_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="huawei_important">Huawei</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="huawei"
-      id="huawei_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="xiaomi_important">Xiaomi</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="xiaomi"
-      id="xiaomi_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="realme_important">Realme</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="realme"
-      id="realme_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="redmi_important">Redmi</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="redmi"
-      id="redmi_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="poco_important">Poco</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="poco"
-      id="poco_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="oppo_important">Oppo</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="oppo"
-      id="oppo_important"
-      onchange="checkChangeEvent()"
-    />
-    <label for="nokia_important">Nokia</label>
-    <input
-      class="check-important"
-      type="checkbox"
-      name="good_phones[]"
-      value="nokia"
-      id="nokia_important"
-      onchange="checkChangeEvent()"
-    />
-  </div>
-  <br />
-  <div>
-    <p>Okay phones:</p>
-    <label for="flip_okay">Flip</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="flip"
-      id="flip_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="fold_okay">Fold</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="fold"
-      id="fold_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="samsung_okay">Samsung</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="samsung"
-      id="samsung_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="oneplus_okay">OnePlus</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="oneplus"
-      id="oneplus_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="sony_okay">Sony</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="sony"
-      id="sony_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="pixel_okay">Pixel</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="pixel"
-      id="pixel_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="honor_okay">Honor</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="honor"
-      id="honor_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="motorola_okay">Motorola</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="motorola"
-      id="motorola_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="nothing_okay">Nothing</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="nothing"
-      id="nothing_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="huawei_okay">Huawei</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="huawei"
-      id="huawei_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="xiaomi_okay">Xiaomi</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="xiaomi"
-      id="xiaomi_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="realme_okay">Realme</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="realme"
-      id="realme_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="redmi_okay">Redmi</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="redmi"
-      id="redmi_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="poco_okay">Poco</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="poco"
-      id="poco_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="oppo_okay">Oppo</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="oppo"
-      id="oppo_okay"
-      onchange="checkChangeEvent()"
-    />
-    <label for="nokia_okay">Nokia</label>
-    <input
-      class="check-okay"
-      type="checkbox"
-      name="neutral_phones[]"
-      value="nokia"
-      id="nokia_okay"
-      onchange="checkChangeEvent()"
-    />
-  </div>
-  <br />
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="flip"
+            id="flip_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="fold_important"
+          >Fold
 
-  <br /><br />
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="fold"
+            id="fold_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="samsung_important"
+          >Samsung
 
-  <button type="submit" class="btn btn-primary">Save</button>
-</form>
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="samsung"
+            id="samsung_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="oneplus_important"
+          >OnePlus
 
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="oneplus"
+            id="oneplus_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="sony_important"
+          >Sony
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="sony"
+            id="sony_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="pixel_important"
+          >Pixel
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="pixel"
+            id="pixel_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="honor_important"
+          >Honor
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="honor"
+            id="honor_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="motorola_important"
+          >Motorola
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="motorola"
+            id="motorola_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="nothing_important"
+          >Nothing
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="nothing"
+            id="nothing_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="huawei_important"
+          >Huawei
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="huawei"
+            id="huawei_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="xiaomi_important"
+          >Xiaomi
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="xiaomi"
+            id="xiaomi_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="realme_important"
+          >Realme
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="realme"
+            id="realme_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="redmi_important"
+          >Redmi
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="redmi"
+            id="redmi_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="poco_important"
+          >Poco
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="poco"
+            id="poco_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="oppo_important"
+          >Oppo
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="oppo"
+            id="oppo_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="nokia_important"
+          >Nokia
+
+          <input
+            class="check-important"
+            type="checkbox"
+            name="good_phones[]"
+            value="nokia"
+            id="nokia_important"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+      <p class="spacer-p"></p>
+      <p class="classification-p">Okay phones:</p>
+      <div>
+        <label class="container" class="container" for="flip_okay"
+          >Flip
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="flip"
+            id="flip_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="fold_okay"
+          >Fold
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="fold"
+            id="fold_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="samsung_okay"
+          >Samsung
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="samsung"
+            id="samsung_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="oneplus_okay"
+          >OnePlus
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="oneplus"
+            id="oneplus_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="sony_okay"
+          >Sony
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="sony"
+            id="sony_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="pixel_okay"
+          >Pixel
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="pixel"
+            id="pixel_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="honor_okay"
+          >Honor
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="honor"
+            id="honor_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="motorola_okay"
+          >Motorola
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="motorola"
+            id="motorola_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="nothing_okay"
+          >Nothing
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="nothing"
+            id="nothing_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="huawei_okay"
+          >Huawei
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="huawei"
+            id="huawei_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="xiaomi_okay"
+          >Xiaomi
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="xiaomi"
+            id="xiaomi_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="realme_okay"
+          >Realme
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="realme"
+            id="realme_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="redmi_okay"
+          >Redmi
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="redmi"
+            id="redmi_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="poco_okay"
+          >Poco
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="poco"
+            id="poco_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="oppo_okay"
+          >Oppo
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="oppo"
+            id="oppo_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div>
+        <label class="container" class="container" for="nokia_okay"
+          >Nokia
+
+          <input
+            class="check-okay"
+            type="checkbox"
+            name="neutral_phones[]"
+            value="nokia"
+            id="nokia_okay"
+            onchange="checkChangeEvent()"
+          />
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+      <p class="spacer-p"></p>
+
+      <button
+        type="submit"
+        class="farmer-button"
+        style="vertical-align: middle"
+      >
+        <span>Farm me some phones </span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<br /><br />
 <p>Min Price, Max Price and at least 1 Okay phone is required</p>
 
 {{ template "base/footer.html" . }} {{ end }} {% comment %}
