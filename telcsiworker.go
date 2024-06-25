@@ -473,6 +473,7 @@ func letsExcelize(phones PhoneCatalog, filename string) {
 				return
 			}
 			f.SetCellValue("Phones", cell, v.link)
+			f.SetCellHyperLink("Phones", cell, v.link,"External")
 		}
 	}
 
