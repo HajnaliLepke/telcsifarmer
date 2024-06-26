@@ -1,0 +1,22 @@
+services:
+  jenkins:
+    container_name: telcsifarmer_jenkins
+    image: jenkins/jenkins:latest
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    restart: always
+
+
+  go_telcsifarmer:
+    container_name: go_telcsifarmer
+    image: go_telcsifarmer:multistage
+    ports:
+      - "6969:6969"
+    restart: always
+
+volumes:
+  jenkins_home:
+    name: TELCSIFARMER_JENKINS    
