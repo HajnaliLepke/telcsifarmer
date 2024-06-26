@@ -59,15 +59,15 @@ pipeline {
                 }
             }
         }        
-        // stage('Deploy') {
-        //     steps {
-        //         script {
-        //             sshagent([SSH_CREDENTIALS]) {
-        //                 // Trigger the script on the remote server to update the service
-        //                 sh "ssh ${REMOTE_HOST} '/path/to/update_service.sh'"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                script {
+                    // sshagent([SSH_CREDENTIALS]) {
+                    //     // Trigger the script on the remote server to update the service
+                        sh 'update_service.sh'
+                    // }
+                }
+            }
+        }
     }
 }
