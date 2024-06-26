@@ -6,12 +6,14 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('telcsifarmer_dockerhub')
-        IMAGE_NAME = "hajnalilepke/go_telcsifarmer"
-        IMAGE_TAG = "latest"
+        REPO_NAME = "hajnalilepke"
+        IMAGE_NAME = "go_telcsifarmer"
+        IMAGE_TAG = "multistage"
         SSH_CREDENTIALS = 'telcsifarmer_ssh'
         REMOTE_HOST = 'malnacska@192.168.1.69'     
         GO114MODULE = 'on'
         CGO_ENABLED = 0 
+        GO_PROJECT_DIR = "path/to/your/go/project" // Relative to workspace
     }
     stages {
         stage('Checkout') {
@@ -54,7 +56,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
-                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+                        docker.image("${REPO_NAME}/${IMAGE_NAME}:${IMAGE_TAG}").push()
                     }
                 }
             }
