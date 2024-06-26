@@ -10,12 +10,12 @@ services:
     restart: always
 
 
-  go_telcsifarmer:
-    container_name: go_telcsifarmer
-    image: go_telcsifarmer:multistage
-    ports:
-      - "6969:6969"
-    restart: always
+  # go_telcsifarmer:
+  #   container_name: go_telcsifarmer
+  #   image: go_telcsifarmer:multistage
+  #   ports:
+  #     - "6969:6969"
+  #   restart: always
 
 volumes:
   jenkins_home:
