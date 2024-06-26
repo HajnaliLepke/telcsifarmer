@@ -27,9 +27,9 @@ pipeline {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
                 sh 'go get ./...'
-                sh 'docker stop go_telcsifarmer'
-                sh 'docker rm go_telcsifarmer'
-                sh 'docker rmi go_telcsifarmer:multistage'
+                // sh 'docker stop go_telcsifarmer'
+                // sh 'docker rm go_telcsifarmer'
+                // sh 'docker rmi go_telcsifarmer:multistage'
                 sh 'docker build . go_telcsifarmer:multistage -f Dockerfile.multistage .'
             }
         }
