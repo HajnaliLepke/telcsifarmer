@@ -5,11 +5,22 @@ pipeline {
         go 'go1.22.4'
     }
     environment {
+        DOCKERHUB_CREDENTIALS = credentials('telcsifarmer_dockerhub')
+        IMAGE_NAME = "hajnalilepke/go_telcsifarmer"
+        IMAGE_TAG = "latest"
+        SSH_CREDENTIALS = 'telcsifarmer_ssh'
+        REMOTE_HOST = 'malnacska@192.168.1.69'     
         GO114MODULE = 'on'
         CGO_ENABLED = 0 
-        GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     }
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from version control
+                echo 'Checkout code from version control'
+                checkout scm
+            }
+        }        
         stage("unit-test") {
             steps {
                 echo 'UNIT TEST EXECUTION STARTED'
@@ -26,18 +37,37 @@ pipeline {
             steps {
                 echo 'BUILD EXECUTION STARTED'
                 sh 'go version'
-                sh 'go get ./...'
-                // sh 'docker stop go_telcsifarmer'
-                // sh 'docker rm go_telcsifarmer'
-                // sh 'docker rmi go_telcsifarmer:multistage'
-                sh 'docker build . go_telcsifarmer:multistage -f Dockerfile.multistage .'
+                sh 'go mod download'
+                sh 'go build .'
+                // sh 'docker build . go_telcsifarmer:multistage -f Dockerfile.multistage .'
             }
         }
-        stage('deliver') {
-            agent any
+        stage('Build Docker Image') {
             steps {
-                sh 'docker run --publish 6969:6969 go_telcsifarmer:multistage'
+                script {
+                    // Build the Docker image, assuming the Dockerfile is in the project root
+                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                }
             }
         }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS) {
+                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
+                    }
+                }
+            }
+        }        
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             sshagent([SSH_CREDENTIALS]) {
+        //                 // Trigger the script on the remote server to update the service
+        //                 sh "ssh ${REMOTE_HOST} '/path/to/update_service.sh'"
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
