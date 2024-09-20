@@ -213,3 +213,8 @@ END
     */
   }
 }
+
+.required:after {
+  content:" *";
+  color: red;
+}

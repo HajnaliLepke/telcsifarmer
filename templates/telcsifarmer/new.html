@@ -1,12 +1,12 @@
-{{ define "telcsik/new.html" }} {{ template "base/header.html" . }}
+{{ define "telcsifarmer/new.html" }} {{ template "base/header.html" . }}
 
 <h2>Get them telcsis</h2>
 <div class="form-main-div">
-  <form action="/telcsik" method="POST">
+  <form action="/telcsifarmer" method="POST">
     <div class="grid-form">
       <p class="spacer-p"></p>
       <div class="price-row">
-        <label for="minprice">Min Price</label>
+        <label for="minprice" class="required">Min Price</label>
         <input
           type="number"
           name="minprice"
@@ -18,7 +18,7 @@
         />
       </div>
       <div class="price-row">
-        <label for="maxprice">Max Price</label>
+        <label for="maxprice" class="required">Max Price</label>
         <input
           type="number"
           name="maxprice"
@@ -274,7 +274,7 @@
       </div>
 
       <p class="spacer-p"></p>
-      <p class="classification-p">Okay phones:</p>
+      <p class="classification-p required">Okay phones:</p>
       <div>
         <label class="container" class="container" for="flip_okay"
           >Flip

@@ -16,22 +16,22 @@ func setupRouter(r *gin.Engine) {
 	r.LoadHTMLGlob("templates/**/*.html")
 	r.Static("/static", "./static")
 	//r.GET("/telcsis/", bookIndexHandler)
-	r.GET("/telcsik", telcsiNewGetHandler)
-	r.GET("/telcsik/download/:excelname", telcsiDownloadGetHandler)
-	r.GET("/telcsik/working", telcsiWorkingGetHandler)
-	r.POST("/telcsik", telcsikNewPostHandler)
+	r.GET("/telcsifarmer", telcsiNewGetHandler)
+	r.GET("/telcsifarmer/download/:excelname", telcsiDownloadGetHandler)
+	r.GET("/telcsifarmer/working", telcsiWorkingGetHandler)
+	r.POST("/telcsifarmer", telcsikNewPostHandler)
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/telcsik")
+		c.Redirect(http.StatusMovedPermanently, "/telcsifarmer")
 	})
 }
 
 func telcsiNewGetHandler(c *gin.Context) {
 	checkExcels()
-	c.HTML(http.StatusOK, "telcsik/new.html", gin.H{})
+	c.HTML(http.StatusOK, "telcsifarmer/new.html", gin.H{})
 }
 
 func telcsiWorkingGetHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "telcsik/working.html", gin.H{})
+	c.HTML(http.StatusOK, "telcsifarmer/working.html", gin.H{})
 }
 
 func telcsiDownloadGetHandler(c *gin.Context) {
@@ -65,7 +65,7 @@ func telcsikNewPostHandler(c *gin.Context) {
 	if err := c.Bind(telcsi); err != nil {
 		// Note: if there's a bind error, Gin will call
 		// c.AbortWithError. We just need to return here.
-		fmt.Printf(" \n\n\nHiba:  %v \n\n\n",err)
+		fmt.Printf(" \n\n\nHiba:  %v \n\n\n", err)
 		return
 	}
 	// FIXME: There's a better way to do this validation!
@@ -74,14 +74,13 @@ func telcsikNewPostHandler(c *gin.Context) {
 		return
 	}
 
-	// c.Redirect(http.StatusFound, "/telcsik/working")
+	// c.Redirect(http.StatusFound, "/telcsifarmer/working")
 	//IDE KELL KÓD, LOGIKA
 	fmt.Printf("Telcsik min_price: %d and Telcsik max_price: %d\n", telcsi.MinPrice, telcsi.MaxPrice)
 	fmt.Printf("Telcsik Fontik: %s, Telcsik maradék: %s\n", telcsi.ImportantPhones, telcsi.NeutralPhones)
 	excelName := telcsiworker(telcsi)
 
-
-	c.Redirect(http.StatusFound, "/telcsik/download/"+excelName)
+	c.Redirect(http.StatusFound, "/telcsifarmer/download/"+excelName)
 }
 
 func checkExcels() {
