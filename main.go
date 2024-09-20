@@ -14,7 +14,7 @@ import (
 
 func setupRouter(r *gin.Engine) {
 	r.LoadHTMLGlob("templates/**/*.html")
-	r.Static("/static", "./static")
+	r.Static("/telcsifarmer/static", "./static")
 	//r.GET("/telcsis/", bookIndexHandler)
 	r.GET("/telcsifarmer", telcsiNewGetHandler)
 	r.GET("/telcsifarmer/download/:excelname", telcsiDownloadGetHandler)
