@@ -65,10 +65,10 @@ func telcsiworker(telcsiFarmolasDef *TelcsiFarmolas) (excelName string) {
 	c_jofog := colly.NewCollector()
 
 	c_hardapro := colly.NewCollector()
-	
+
 	// const MAX_PRICE = 100000
 	// const MIN_PRICE = 20000
-	
+
 	const DEPTH = 50
 	currentDepth := 0
 
@@ -167,9 +167,8 @@ func telcsiworker(telcsiFarmolasDef *TelcsiFarmolas) (excelName string) {
 			excel_color: "BAD",
 		})
 
-
 	// INIT REGEXPS
-	p_regexps =	decideRegexp(foundPhones)
+	p_regexps = decideRegexp(foundPhones)
 
 	// p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 	// 	name:     "flip",
@@ -358,13 +357,23 @@ func telcsiworker(telcsiFarmolasDef *TelcsiFarmolas) (excelName string) {
 		}
 	})
 
-	c_jofog.Visit(fmt.Sprintf("https://www.jofogas.hu/magyarorszag/mobiltelefon?max_price=%d&min_price=%d&mobile_memory=3,4,5,6,7,8&mobile_os=1&sp=2", telcsiFarmolasDef.MaxPrice, telcsiFarmolasDef.MinPrice))
+	jofog_link := ""
+	hardapro_link := ""
+	if telcsiFarmolasDef.IsPhone == "on" {
+		jofog_link = fmt.Sprintf("https://www.jofogas.hu/magyarorszag/mobiltelefon?max_price=%d&min_price=%d&mobile_memory=3,4,5,6,7,8&mobile_os=1&sp=2", telcsiFarmolasDef.MaxPrice, telcsiFarmolasDef.MinPrice)
+		hardapro_link = fmt.Sprintf("https://hardverapro.hu/aprok/mobil/mobil/android/keres.php?stext=&stcid_text=&stcid=&stmid_text=&stmid=&minprice=%d&maxprice=%d&cmpid_text=&cmpid=&usrid_text=&usrid=&__buying=0&__buying=1&stext_none=", telcsiFarmolasDef.MinPrice, telcsiFarmolasDef.MaxPrice)
+	} else {
+		jofog_link = fmt.Sprintf("https://www.jofogas.hu/magyarorszag/tablet-e-book-olvaso-es-kiegeszitok?max_price=%d&min_price=%d&tablet_os=1&tablet_size=5,6,7&tablet_type=1", telcsiFarmolasDef.MaxPrice, telcsiFarmolasDef.MinPrice)
+		hardapro_link = fmt.Sprintf("https://hardverapro.hu/aprok/mobil/tablet/android_tablet/keres.php?stext=&stcid_text=&stcid=&stmid_text=&stmid=&minprice=%d&maxprice=%d&cmpid_text=&cmpid=&usrid_text=&usrid=&__buying=0&__buying=1&stext_none=", telcsiFarmolasDef.MinPrice, telcsiFarmolasDef.MaxPrice)
+
+	}
+
+	c_jofog.Visit(jofog_link)
 	c_jofog.Wait()
 	fmt.Println("Done with Jófogás")
-	c_hardapro.Visit(fmt.Sprintf("https://hardverapro.hu/aprok/mobil/mobil/android/keres.php?stext=&stcid_text=&stcid=&stmid_text=&stmid=&minprice=%d&maxprice=%d&cmpid_text=&cmpid=&usrid_text=&usrid=&__buying=0&__buying=1&stext_none=", telcsiFarmolasDef.MinPrice, telcsiFarmolasDef.MaxPrice))
+	c_hardapro.Visit(hardapro_link)
 	c_hardapro.Wait()
 	fmt.Println("Done with Hardverapró")
-
 	//	fmt.Println("Done scraping\nStarting Sorting")
 
 	sortPhones(foundPhones)
@@ -473,7 +482,7 @@ func letsExcelize(phones PhoneCatalog, filename string) {
 				return
 			}
 			f.SetCellValue("Phones", cell, v.link)
-			f.SetCellHyperLink("Phones", cell, v.link,"External")
+			f.SetCellHyperLink("Phones", cell, v.link, "External")
 		}
 	}
 
@@ -643,18 +652,17 @@ func getRamClassification(title string) (ram string) {
 	}
 	if re128GBprob.MatchString(title) {
 		ram += "1"
-		} else {
-			ram += "0"
+	} else {
+		ram += "0"
 	}
 	return
 }
 
-func decidePhoneCatalog(telcsi *TelcsiFarmolas)(PhoneCatalog){
+func decidePhoneCatalog(telcsi *TelcsiFarmolas) PhoneCatalog {
 	var foundPhones PhoneCatalog
-	
 
 	//var phoneBrands []string
-	
+
 	// Important
 	for _, p := range telcsi.ImportantPhones {
 		foundPhones.phonebrands = append(foundPhones.phonebrands,
@@ -662,9 +670,8 @@ func decidePhoneCatalog(telcsi *TelcsiFarmolas)(PhoneCatalog){
 				name:        p,
 				phones:      make([]Phone, 0),
 				excel_color: "GOOD",
-			})			
+			})
 	}
-
 
 	// Neutral
 	for _, p := range telcsi.NeutralPhones {
@@ -673,14 +680,13 @@ func decidePhoneCatalog(telcsi *TelcsiFarmolas)(PhoneCatalog){
 				name:        p,
 				phones:      make([]Phone, 0),
 				excel_color: "NEUTRAL",
-			})			
+			})
 	}
-	
 
 	return foundPhones
 }
 
-func decideRegexp(fp PhoneCatalog)(PhoneRegExpCatalog){
+func decideRegexp(fp PhoneCatalog) PhoneRegExpCatalog {
 	var p_regexps PhoneRegExpCatalog
 
 	p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
@@ -688,99 +694,99 @@ func decideRegexp(fp PhoneCatalog)(PhoneRegExpCatalog){
 		p_regexp: regexp.MustCompile("APPLE|IPHONE"),
 	})
 
-	if(checkPhoneCatalogForBrand(fp,"flip")){
+	if checkPhoneCatalogForBrand(fp, "flip") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "flip",
 			p_regexp: regexp.MustCompile("FLIP"),
 		})
 	}
-	
-	if(checkPhoneCatalogForBrand(fp,"fold")){
+
+	if checkPhoneCatalogForBrand(fp, "fold") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "fold",
 			p_regexp: regexp.MustCompile("FOLD"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"samsung")){
+	if checkPhoneCatalogForBrand(fp, "samsung") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "samsung",
 			p_regexp: regexp.MustCompile("SAMSUNG|GALAXY|SAMSUBG"),
 		})
 	}
 
-	if(checkPhoneCatalogForBrand(fp,"huawei")){
+	if checkPhoneCatalogForBrand(fp, "huawei") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "huawei",
 			p_regexp: regexp.MustCompile("HUAWEI|HAUWEI|HUANWEI"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"xiaomi")){
+	if checkPhoneCatalogForBrand(fp, "xiaomi") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "xiaomi",
 			p_regexp: regexp.MustCompile("XIAOMI|XAOMI"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"sony")){
+	if checkPhoneCatalogForBrand(fp, "sony") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "sony",
 			p_regexp: regexp.MustCompile("SONY"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"nothing")){
+	if checkPhoneCatalogForBrand(fp, "nothing") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "nothing",
 			p_regexp: regexp.MustCompile("NOTHING"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"oneplus")){
+	if checkPhoneCatalogForBrand(fp, "oneplus") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "oneplus",
 			p_regexp: regexp.MustCompile("ONEPLUS|ONE PLUS"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"pixel")){
+	if checkPhoneCatalogForBrand(fp, "pixel") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "pixel",
 			p_regexp: regexp.MustCompile("PIXEL"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"honor")){
+	if checkPhoneCatalogForBrand(fp, "honor") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "honor",
 			p_regexp: regexp.MustCompile("HONOR"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"oppo")){
+	if checkPhoneCatalogForBrand(fp, "oppo") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "oppo",
 			p_regexp: regexp.MustCompile("OPPO"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"redmi")){
+	if checkPhoneCatalogForBrand(fp, "redmi") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "redmi",
 			p_regexp: regexp.MustCompile("REDMI"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"realme")){
+	if checkPhoneCatalogForBrand(fp, "realme") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "realme",
 			p_regexp: regexp.MustCompile("REALME"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"poco")){
+	if checkPhoneCatalogForBrand(fp, "poco") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "poco",
 			p_regexp: regexp.MustCompile("POCO"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"nokia")){
+	if checkPhoneCatalogForBrand(fp, "nokia") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "nokia",
 			p_regexp: regexp.MustCompile("NOKIA"),
 		})
 	}
-	if(checkPhoneCatalogForBrand(fp,"motorola")){
+	if checkPhoneCatalogForBrand(fp, "motorola") {
 		p_regexps.regexps = append(p_regexps.regexps, PhoneRegExp{
 			name:     "motorola",
 			p_regexp: regexp.MustCompile("MOTOROLA"),
@@ -790,9 +796,9 @@ func decideRegexp(fp PhoneCatalog)(PhoneRegExpCatalog){
 	return p_regexps
 }
 
-func checkPhoneCatalogForBrand(fp PhoneCatalog,brand string)(bool){
-	found := false;
-	for _,pb := range fp.phonebrands {
+func checkPhoneCatalogForBrand(fp PhoneCatalog, brand string) bool {
+	found := false
+	for _, pb := range fp.phonebrands {
 		if pb.name == brand {
 			found = true
 			return found
@@ -800,6 +806,7 @@ func checkPhoneCatalogForBrand(fp PhoneCatalog,brand string)(bool){
 	}
 	return found
 }
+
 /*
 
 #
