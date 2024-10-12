@@ -6,6 +6,37 @@ var findIndex = function(arr,tofind) {
     }
 };
   
+function changeSelector(selectToChange){
+    var phone_selector_element = document.getElementById("phone_selector");
+    var tablet_selector_element = document.getElementById("tablet_selector");
+
+    if (selectToChange === "phone") {
+        if (!phone_selector_element.classList.contains("selector-selected")){
+            // console.log("changing to phone")
+            document.getElementById("isphone").checked = true;
+            document.getElementById("farm-span-text").innerText = "Farm me some phones "
+            
+            phone_selector_element.classList.remove("selector-unselected");
+            phone_selector_element.classList.add("selector-selected");
+            
+            tablet_selector_element.classList.remove("selector-selected");
+            tablet_selector_element.classList.add("selector-unselected");
+        }
+    } else if (selectToChange === "tablet") {
+        if (!tablet_selector_element.classList.contains("selector-selected")){
+            // console.log("changing to tablet")
+            document.getElementById("isphone").checked = false;
+            document.getElementById("farm-span-text").innerText = "Farm me some tablets "
+
+            tablet_selector_element.classList.remove("selector-unselected");
+            tablet_selector_element.classList.add("selector-selected");
+        
+            phone_selector_element.classList.remove("selector-selected");
+            phone_selector_element.classList.add("selector-unselected");        
+        }
+    }
+}
+
 function orderChange() {
     //we need to undisable every select to start over
     undisableallselects()
@@ -85,3 +116,5 @@ function checkboxChecked() {
 
     console.log(checks)
 }
+
+

@@ -45,6 +45,50 @@ grid-column-end: -1 ;
 height: 30px;
 }
 
+.selector-icon-row {
+  /* grid-column-start: 1;
+  grid-column-end: -1 ; */
+  /* grid-auto-rows: 150px; */
+  /* height: 30px; */
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#phone_selector, #tablet_selector {
+  flex: 1; /* Az inner-div-ek egyenlő arányban oszlanak el */
+  margin: 0 0.5rem; /* Opciósan távolság a div-ek között */
+  /*padding: 1rem;*/ /* Belső margó a gomb körül */
+  text-align: center; /* Középre igazítás */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Középre igazítás */
+  border: 2px solid rgba(255, 159, 0, 0.8); /* Lekerekített border */
+  border-radius: 10px; /* Lekerekített sarkok */
+}
+
+/* Hover állapot */
+.selector-unselected:hover {
+  background-color: rgba(255, 159, 0, 0.7); /* Sötétebb narancssárga hover állapotban */
+  transform: translateY(-2px); /* Finom felemelés hatás */
+}
+
+/* Aktív állapot */
+.selector-unselected:active {
+  transform: translateY(0); /* Visszatér az alaphelyzetbe kattintáskor */
+}
+
+.selector-unselected {
+  background-color: rgba(255, 255, 255, 0.1); /* Narancssárga háttér, nem rikító */
+  cursor: pointer; /* Mutatja, hogy kattintható */
+  transition: background-color 0.3s, transform 0.2s; /* Animáció a háttérszínre és a méretre */
+}
+
+.selector-selected {
+  background-color: rgba(255, 159, 0, 0.7); /* Sötétebb narancssárga hover állapotban */
+}
+
+
 .classification-p{
   grid-column: 1 / -1;
   height: 30px;
